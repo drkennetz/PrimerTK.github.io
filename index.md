@@ -13,16 +13,16 @@ PrimerTK is used in conjunction with [primer3](https://github.com/primer3-org/pr
 5. [Multiplex Tutorial](#Multiplex-Primer-Generation)
 6. [Deletions](#Deletions-Primer-Generation)
 7. [Insertions](#Insertions-Primer-Generation )
-0. [Test](#test.md)
+0. [Test](test.md)
 
-## Introduction
+## Introduction <a name="Introduction"></a>
 This is an introduction to PrimerTK.
 
-## Installation
+## Installation <a name="Installation"></a>
 Edit installer.sh then run to install primer3 and isPcr.
 Also, `pip3 install primer_tk --user`
 
-## Quickstart
+## Quickstart <a name="Quickstart"></a>
 This is a quick run through of the standard primer generation.
 
 ## Standard Primer Generation
