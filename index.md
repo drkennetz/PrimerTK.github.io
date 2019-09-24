@@ -9,10 +9,10 @@ PrimerTK is used in conjunction with [primer3](https://github.com/primer3-org/pr
 1. [Introduction](#Introduction)
 2. [Install](#Installation)
 3. [Quickstart](#Quickstart)
-4. [Standard Tutorial](#Standard Primer Generation)
-5. [Multiplex Tutorial](#Multiplex Primer Generation)
-6. [Deletions](#Deletions Primer Generation)
-7. [Insertions](#Insertions Primer Generation )
+4. [Standard Tutorial](#Standard-Primer-Generation)
+5. [Multiplex Tutorial](#Multiplex-Primer-Generation)
+6. [Deletions](#Deletions-Primer-Generation)
+7. [Insertions](#Insertions-Primer-Generation )
 
 
 ## Introduction
