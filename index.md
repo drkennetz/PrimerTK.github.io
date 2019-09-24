@@ -13,7 +13,7 @@ PrimerTK is used in conjunction with [primer3](https://github.com/primer3-org/pr
 5. [Multiplex Tutorial](#Multiplex-Primer-Generation)
 6. [Deletions](#Deletions-Primer-Generation)
 7. [Insertions](#Insertions-Primer-Generation )
-
+0. [Test](#test.md)
 
 ## Introduction
 This is an introduction to PrimerTK.
