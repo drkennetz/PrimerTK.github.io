@@ -137,7 +137,7 @@ To do it manually:
 
 ```
 export PATH=~/bin/primer3/src/:$PATH
-export PATH=~/bin/isPcr/:$PATH
+export PATH=~/bin/isPcr33/:$PATH
 ```
 
 Or correspondingly you can add the same two lines of code to your `~/.bashrc` and these will both be added to your `PATH` when you login to your account.
