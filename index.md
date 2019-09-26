@@ -12,5 +12,5 @@ PrimerTK also has pipelines written in the Common Workflow Language (CWL). CWL a
 2. [Install](installation.md)
 3. [Input Templates](inputs.md)
 4. [Standard and Multiplex Tutorial](standard_and_multiplex.md)
-5. [Sturctural Variants Tutorial](sturctural_variants.md)
+5. [Sturctural Variants Tutorial](structural_variants.md)
 6. [Common Workflow Language Setup](cwl.md)
