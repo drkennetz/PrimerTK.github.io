@@ -91,24 +91,26 @@ As you can see, the help message is pretty detailed. The only thing that may nee
 Anything with a default value does not have to be specified on the command line (if you want to use that value as the parameter). These have been selected because I have seen good success with these values for standard pcr. In this tutorial, I will specify every value, but again you do not have to specify defaults.
 
 *NOTE: THE -mp AND -tp FLAGS SHOULD BE THE FULL PATH TO FILE AS THIS IS WHAT PRIMER3 REQUIRES*
+*NOTE: THE -st SHOULD ALWAYS BE (-flank-1,1) SO IF FLANK IS 200, -st SHOULD be 200-1,1 OR 199,1. THIS IS SO YOUR POSITION OF INTEREST IS GUARANTEED TO BE IN YOUR PRODUCT. I ALSO ALWAYS SET MY -sr UPPER LIMIT TO BE TWICE MY FLANK SIZE.*
+
 ```
 primer_tk iterator \
-> -ref test_standard.fa \
-> -in input_standard.csv \
-> -opt_size 22 \
-> -min_size 18 \
-> -max_size 25 \
-> -opt_gc 50 \
-> -min_gc 20 \
-> -max_gc 80 \
-> -opt_tm 60 \
-> -min_tm 57 \
-> -max_tm 63 \
-> -sr 200-400 \
-> -flank 200 \
-> -st 199,1 \
-> -mp /home/dkennetz/tmp/tutorial/humrep.ref \
-> -tp /home/dkennetz/primer3/src/primer3_config/
+ -ref test_standard.fa \
+ -in input_standard.csv \
+ -opt_size 22 \
+ -min_size 18 \
+ -max_size 25 \
+ -opt_gc 50 \
+ -min_gc 20 \
+ -max_gc 80 \
+ -opt_tm 60 \
+ -min_tm 57 \
+ -max_tm 63 \
+ -sr 200-400 \
+ -flank 200 \
+ -st 199,1 \
+ -mp /home/dkennetz/tutorial/humrep.ref \
+ -tp /home/dkennetz/bin/primer3/src/primer3_config/
 ```
 
 This module is just used to parse any reference genome and setup a primer3 config. The outputs will be:
@@ -136,6 +138,20 @@ rm -rf *.int *.for *.rev
 ```
 
 Up to 5 primer pairs will be output per position, and all will be visible in the files. In the final step, we will have one file called "top_primers" and one called "all_primers". The top_primers file will be the top ranking primer pair that passed all filtering steps, and all_primers will output all primers that passed all filtering steps (up to 5 per position).
+
+We can also see why primers failed at specific regions if we look at the primer dump file. For example, position 1 returned 0 primers. If we look at why:
+
+```
+PRIMER_LEFT_EXPLAIN=considered 653, low tm 476, high repeat similarity 113, long poly-x seq 64, ok 0
+PRIMER_RIGHT_EXPLAIN=considered 791, GC content failed 140, low tm 304, high tm 163, high hairpin stability 47, high repeat similarity 83, long poly-x seq 54, ok 0
+```
+Primer3 gives us a pretty informative description. If we then take a look at the sequence it used to design primers:
+
+```
+SEQUENCE_TEMPLATE=AACCCTAACCCTAACCCTAACCCTAACCCCTAACCCTAACCCTAACCCTAACCCTAACCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCCTAACCCTAACCCTAAACCCTAAACCCTAACCCTAACCCTAACCCTAACCCTAACCCCAACCCCAACCCCAACCCCAACCCCAACCCCAACCCTAACCCCTAACCCTAACCCTAACCCTACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCCTAACCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCCTAACCCTAACCCTAACCCTAACCCTCGCGGTACCCTCAGCCGGCCCGCCCGCCCGGGTCTGACCTGAGGAGAACTGT
+```
+It looks highly repetitive. This seems reasonable!
+
 
 ## 4) Run the pre-pcr step and the multiplex filtering
 
@@ -308,7 +324,7 @@ The PCR product info file will include information regarding all products genera
 
 The all primers file will contain all primers that passed all the applied filters for a given position, for all positions in the file. This file will have a tag for each primer pair to indicate how many off-target sites it amplified. I have seen cases where the top ranking primer pair actually amplified more off-target than the second ranking primer pair (differences as great as 5 to 0). For this case, I go back and look at the penalty in the `primer_dump.txt` file to see if the penalty difference between the two is substantial and if they have similar tm and product gc. If the thermodynamics look good between the pair, and one has less off-target than the other, I pick the one with less off-target.
 
-The top final primers file will display the top ranking primer pair for each position.
+The top final primers file will display the top ranking primer pair for each position. Also, the primer positions in regards to the reference will also be output, as this can be useful to potentially trouble shoot primers that seem like they have failed.
 
 Lastly, the plate_basename is a simple string that we want our primer plate to be named. This step will setup a ready to order file with the forward primers in a plate format and the reverse primers in a plate format. The default for these files will be:
 
@@ -344,7 +360,7 @@ plated_F.csv
 plated_R.csv
 ```
 
-## 7) SNP Annotation of Primers
+## 7) SNP Annotation of Primers <a name="tabix"></a>
 
 This cannot be done in the tutorial, but can be done with real datasets, as long as there is a vcf file for the reference you are using. 
 
