@@ -384,4 +384,4 @@ primer_tk tabix \
 
 which would return a the snp annotated primer file!
 
-Next, proceed to the [Sructural Varianst Tutorial](structural_variants.md) or the [CWL Tutorial](cwl.md) to learn how to run this pipeline is a single step workflow!
+Next, proceed to the [Sructural Variants Tutorial](structural_variants.md) or the [CWL Tutorial](cwl.md) to learn how to run this pipeline as a single step workflow!
